@@ -97,6 +97,16 @@ class MarinaPageReportPermissionManager {
       () => frappe.set_route("marina-user-module-manager"),
       __("Permission Manager")
     );
+    this.page.add_inner_button(
+      __("Workspaces"),
+      () => frappe.set_route("marina-workspace-access-manager"),
+      __("Permission Manager")
+    );
+    this.page.add_inner_button(
+      __("User Permissions"),
+      () => frappe.set_route("marina-user-permission-manager"),
+      __("Permission Manager")
+    );
   }
 
   make_body() {
@@ -110,6 +120,7 @@ class MarinaPageReportPermissionManager {
     });
     this.body.on("change", ".prpm-allowed", (event) => this.handle_access_change(event));
     this.body.on("change", ".prpm-bulk-allowed", (event) => this.handle_bulk_change(event));
+    this.body.on("click", ".prpm-resource-link", (event) => this.handle_resource_link(event));
   }
 
   handle_selection_change() {
@@ -292,9 +303,15 @@ class MarinaPageReportPermissionManager {
     const title = row.open_to_all
       ? __("Open to all roles. Use the standard manager to replace open access with an explicit role list.")
       : "";
+    const href = this.resource_href(row);
     return `
       <tr class="prpm-row${modified}" data-resource="${this.escape(row.resource)}">
-        <td class="prpm-name-column">${this.escape(row.label)}</td>
+        <td class="prpm-name-column">
+          <a class="prpm-resource-link" href="${this.escape(href)}"
+            data-resource="${this.escape(row.resource)}" title="${__("Open {0}", [this.escape(row.label)])}">
+            ${this.escape(row.label)} <span aria-hidden="true">↗</span>
+          </a>
+        </td>
         <td>${this.escape(row.resource)}</td>
         <td>${this.escape(detail)}</td>
         <td><span class="indicator-pill ${source_color}">${this.escape(source)}</span></td>
@@ -304,6 +321,36 @@ class MarinaPageReportPermissionManager {
         </td>
       </tr>
     `;
+  }
+
+  resource_route(row) {
+    if (row.resource_type === "Page") return [row.resource];
+    if (row.report_type === "Report Builder" && row.ref_doctype) {
+      return ["List", row.ref_doctype, "Report", row.resource];
+    }
+    return ["query-report", row.resource];
+  }
+
+  resource_href(row) {
+    const route = frappe.router.convert_from_standard_route([...this.resource_route(row)]);
+    return frappe.router.make_url(route);
+  }
+
+  handle_resource_link(event) {
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.button === 1) return;
+    event.preventDefault();
+    const resource = $(event.currentTarget).attr("data-resource");
+    const row = this.row_by_resource(resource);
+    if (!row) return;
+    const open = () => frappe.set_route(this.resource_route(row));
+    if (this.pending.size) {
+      frappe.confirm(
+        __("Open this {0} and leave the current unsaved permission changes?", [row.resource_type]),
+        open
+      );
+      return;
+    }
+    open();
   }
 
   toggle_group(index) {

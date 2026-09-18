@@ -101,6 +101,18 @@
   z-index: 5;
 }
 
+.prpm-resource-link {
+  color: var(--prpm-accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.prpm-resource-link:hover,
+.prpm-resource-link:focus {
+  color: var(--prpm-accent);
+  text-decoration: underline;
+}
+
 .prpm-check-cell {
   min-width: 105px;
   text-align: center;

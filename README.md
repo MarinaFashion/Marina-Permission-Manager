@@ -2,7 +2,7 @@
 
 Bulk access-management tools and reporting for Frappe Framework and ERPNext v15.
 
-Permission Manager lets a System Manager manage DocType role permissions, user module availability, and Page/Report access from bulk-management screens. It also provides an access workspace, summary cards, and module-access reports.
+Permission Manager lets a System Manager manage DocType role permissions, user module availability, User Permissions, Workspace roles, and Page/Report access from bulk-management screens. It also provides an access workspace, summary cards, and module-access reports.
 
 ## Compatibility
 
@@ -26,6 +26,8 @@ Open:
 /app/marina-permission-manager
 /app/marina-user-module-manager
 /app/marina-page-report-permission-manager
+/app/marina-workspace-access-manager
+/app/marina-user-permission-manager
 ```
 
 Only users with the **System Manager** role can open the page or call its server methods.
@@ -44,13 +46,18 @@ Only users with the **System Manager** role can open the page or call its server
 - Bulk availability selection with user, status, and Module Profile filters
 - Profile-controlled users become individually managed only when their module access is changed
 - Bulk role access management for Pages and Reports using Frappe's `Custom Role` mechanism
+- Bulk allowed-role management for public Workspaces, with an active-user access preview
+- Private Workspace owners and Page-based role overrides are shown without overwriting their native access rules
+- Bulk User Permission assignment for one exact permitted document and scope across Desk users
+- Active/inactive user filtering, with safe cleanup of permissions belonging to inactive users
 - Permission Manager workspace with active-user, module, and workspace cards
 - Users Available per Module and User Module Access Summary reports
 
-Advanced-rule creation and User Permissions are outside the current scope.
+Complex multi-rule editing remains available through Frappe's standard User Permission list.
 
 ## Releases
 
+- **0.3.0** — Add bulk Workspace role management, inherited-user access preview, bulk User Permission management with active/inactive cleanup, responsive table sizing, and direct Page/Report links.
 - **0.2.0** — Add the Permission Manager workspace, summary cards, module-access reports, bulk user-module management, bulk Page/Report role management, and clickable DocType links.
 - **0.1.1** — Fix the Save Changes button on Frappe v15.
 - **0.1.0** — Initial module-grouped permission matrix.

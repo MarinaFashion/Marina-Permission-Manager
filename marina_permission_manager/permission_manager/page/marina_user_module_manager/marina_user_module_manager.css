@@ -22,6 +22,8 @@
 
 .mum-root .mpm-table {
   margin: 0;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .mum-root .mpm-table th,
@@ -29,7 +31,8 @@
   font-size: 12px;
   padding: 0.45rem 0.5rem !important;
   vertical-align: middle !important;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .mum-root .mpm-table thead th {
@@ -41,7 +44,7 @@
 }
 
 .mum-root .mpm-check-cell {
-  min-width: 105px;
+  width: 13%;
   text-align: center;
 }
 
@@ -87,16 +90,24 @@
 }
 
 .mum-table {
-  min-width: 850px;
+  min-width: 0;
 }
 
 .mum-user-column {
   background: var(--fg-color);
   left: 0;
-  min-width: 220px;
   position: sticky;
   text-align: left !important;
+  width: 31%;
   z-index: 2;
+}
+
+.mum-email-column {
+  width: 37%;
+}
+
+.mum-profile-column {
+  width: 19%;
 }
 
 .mum-table thead .mum-user-column {
@@ -115,4 +126,10 @@
 .mum-help {
   font-size: var(--text-sm);
   padding: 0.75rem 0.25rem;
+}
+
+@media (max-width: 767px) {
+  .mum-table {
+    min-width: 620px;
+  }
 }

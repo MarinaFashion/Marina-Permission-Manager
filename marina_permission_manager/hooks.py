@@ -1,7 +1,7 @@
 app_name = "marina_permission_manager"
 app_title = "Permission Manager"
 app_publisher = "Marina Fashion"
-app_description = "Bulk role, module, Page, and Report access management for Frappe and ERPNext v15"
+app_description = "Bulk role, module, Workspace, User Permission, Page, and Report access management for Frappe and ERPNext v15"
 app_email = "a.hasan@marinafashion.com.sa"
 app_license = "MIT"
 

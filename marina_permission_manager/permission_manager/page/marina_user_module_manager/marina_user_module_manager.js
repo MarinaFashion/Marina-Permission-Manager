@@ -76,6 +76,16 @@ class MarinaUserModuleManager {
       () => frappe.set_route("marina-page-report-permission-manager"),
       __("Permission Manager")
     );
+    this.page.add_inner_button(
+      __("Workspaces"),
+      () => frappe.set_route("marina-workspace-access-manager"),
+      __("Permission Manager")
+    );
+    this.page.add_inner_button(
+      __("User Permissions"),
+      () => frappe.set_route("marina-user-permission-manager"),
+      __("Permission Manager")
+    );
   }
 
   make_body() {
@@ -221,8 +231,8 @@ class MarinaUserModuleManager {
           <thead>
             <tr>
               <th class="mum-user-column">${__("User")}</th>
-              <th>${__("Email / User ID")}</th>
-              <th>${__("Module Profile")}</th>
+              <th class="mum-email-column">${__("Email / User ID")}</th>
+              <th class="mum-profile-column">${__("Module Profile")}</th>
               <th class="mpm-check-cell">
                 <label class="mum-bulk-label">
                   <input type="checkbox" class="mum-bulk-available"
@@ -253,8 +263,8 @@ class MarinaUserModuleManager {
     return `
       <tr class="mum-user-row${modified_class}" data-user="${this.escape(user.user)}">
         <td class="mum-user-column">${this.escape(user.full_name)}</td>
-        <td>${this.escape(user.user)}</td>
-        <td>${profile}</td>
+        <td class="mum-email-column">${this.escape(user.user)}</td>
+        <td class="mum-profile-column">${profile}</td>
         <td class="mpm-check-cell">
           <input type="checkbox" class="mum-available" data-user="${this.escape(user.user)}"
             ${user.available ? "checked" : ""} ${this.globally_blocked ? "disabled" : ""}>

@@ -101,6 +101,16 @@ class MarinaPermissionManager {
       () => frappe.set_route("marina-page-report-permission-manager"),
       __("Permission Manager")
     );
+    this.page.add_inner_button(
+      __("Workspaces"),
+      () => frappe.set_route("marina-workspace-access-manager"),
+      __("Permission Manager")
+    );
+    this.page.add_inner_button(
+      __("User Permissions"),
+      () => frappe.set_route("marina-user-permission-manager"),
+      __("Permission Manager")
+    );
     this.update_save_button();
   }
 
