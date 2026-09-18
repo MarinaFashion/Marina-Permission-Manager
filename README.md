@@ -48,7 +48,8 @@ Only users with the **System Manager** role can open the page or call its server
 - Bulk role access management for Pages and Reports using Frappe's `Custom Role` mechanism
 - Bulk allowed-role management for public Workspaces, with an active-user access preview
 - Private Workspace owners and Page-based role overrides are shown without overwriting their native access rules
-- Bulk User Permission assignment for one exact permitted document and scope across Desk users
+- Dual-mode User Permission management: assign one exact value across Desk users, or select one user and reconcile all values for an Allow document type and scope
+- User-centric saves create missing permissions, update default selection, and delete deselected exact records while preserving unrelated User Permissions
 - Active/inactive user filtering, with safe cleanup of permissions belonging to inactive users
 - Permission Manager workspace with active-user, module, and workspace cards
 - Users Available per Module and User Module Access Summary reports
@@ -57,6 +58,7 @@ Complex multi-rule editing remains available through Frappe's standard User Perm
 
 ## Releases
 
+- **0.4.0** — Add user-centric User Permission management with generic document-value assignment, default controls, inactive-user cleanup, and exact-scope reconciliation while retaining the existing users-for-permission mode.
 - **0.3.0** — Add bulk Workspace role management, inherited-user access preview, bulk User Permission management with active/inactive cleanup, responsive table sizing, and direct Page/Report links.
 - **0.2.0** — Add the Permission Manager workspace, summary cards, module-access reports, bulk user-module management, bulk Page/Report role management, and clickable DocType links.
 - **0.1.1** — Fix the Save Changes button on Frappe v15.

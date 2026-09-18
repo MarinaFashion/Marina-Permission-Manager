@@ -91,9 +91,14 @@
   width: 15px;
 }
 
-.upm-permission-link {
+.upm-permission-link,
+.upm-value-link {
   color: var(--upm-accent);
   margin-left: 0.5rem;
+}
+
+.upm-value-link {
+  margin-left: 0;
 }
 
 @media (max-width: 767px) {
