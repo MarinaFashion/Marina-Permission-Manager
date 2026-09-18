@@ -488,7 +488,7 @@ class MarinaPermissionManager {
       __("Apply {0} changed permission rows across {1} Document Types for role {2}?", [
         changes.length,
         doctypes,
-        frappe.bold(this.current_role),
+        `<strong>${this.escape(this.current_role)}</strong>`,
       ]),
       async () => {
         const response = await frappe.call({

@@ -40,6 +40,11 @@ Only users with the **System Manager** role can open the page or call its server
 
 Advanced-rule creation, Role Profiles, User Permissions, Pages, Reports, and Workspaces are intentionally outside the first prototype.
 
+## Releases
+
+- **0.1.1** — Fix the Save Changes button on Frappe v15.
+- **0.1.0** — Initial module-grouped permission matrix.
+
 ## License
 
 MIT
