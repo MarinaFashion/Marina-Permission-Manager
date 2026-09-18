@@ -86,6 +86,21 @@ class MarinaPermissionManager {
     this.page.add_inner_button(__("Discard Changes"), () => this.discard_changes());
     this.page.add_inner_button(__("Collapse All"), () => this.collapse_all(), __("View"));
     this.page.add_inner_button(__("Expand All"), () => this.expand_all(), __("View"));
+    this.page.add_inner_button(
+      __("Dashboard"),
+      () => frappe.set_route("permission-manager-dashboard"),
+      __("Permission Manager")
+    );
+    this.page.add_inner_button(
+      __("User Modules"),
+      () => frappe.set_route("marina-user-module-manager"),
+      __("Permission Manager")
+    );
+    this.page.add_inner_button(
+      __("Pages and Reports"),
+      () => frappe.set_route("marina-page-report-permission-manager"),
+      __("Permission Manager")
+    );
     this.update_save_button();
   }
 
@@ -102,6 +117,7 @@ class MarinaPermissionManager {
 
     this.body.on("change", ".mpm-right", (event) => this.handle_right_change(event));
     this.body.on("change", ".mpm-bulk-right", (event) => this.handle_bulk_change(event));
+    this.body.on("click", ".mpm-doctype-link", (event) => this.handle_doctype_link(event));
   }
 
   async handle_role_change() {
@@ -333,17 +349,42 @@ class MarinaPermissionManager {
     const source = row.source === "custom" ? __("Custom") : row.source === "standard" ? __("Standard") : __("None");
     const source_class = row.source === "custom" ? "orange" : row.source === "standard" ? "blue" : "gray";
     const modified_class = this.pending.has(row.key) ? " mpm-row-modified" : "";
+    const doctype_route = `/app/${frappe.router.slug(row.doctype)}`;
 
     return `
       <tr class="mpm-permission-row${modified_class}" data-row-key="${this.escape(row.key)}">
         <td class="mpm-doctype-column" title="${this.escape(row.doctype)}">
-          ${this.escape(row.doctype_label)}
+          <a class="mpm-doctype-link" href="${this.escape(doctype_route)}"
+            data-doctype="${this.escape(row.doctype)}">${this.escape(row.doctype_label)}</a>
         </td>
         <td class="text-center">${row.permlevel}</td>
         <td class="text-center">${row.if_owner ? "✓" : "—"}</td>
         <td><span class="indicator-pill ${source_class}">${this.escape(source)}</span></td>
         ${cells}
       </tr>`;
+  }
+
+  handle_doctype_link(event) {
+    // Preserve normal browser behavior for opening the DocType in another tab or window.
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) {
+      return;
+    }
+
+    event.preventDefault();
+    const doctype = $(event.currentTarget).attr("data-doctype");
+    const open_doctype = () => frappe.set_route("List", doctype);
+
+    if (this.pending.size) {
+      frappe.confirm(
+        __("You have unsaved permission changes. Open {0} without saving them?", [
+          `<strong>${this.escape(doctype)}</strong>`,
+        ]),
+        open_doctype
+      );
+      return;
+    }
+
+    open_doctype();
   }
 
   handle_right_change(event) {

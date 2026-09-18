@@ -1,8 +1,8 @@
 # Permission Manager
 
-An editable, module-grouped role-permission matrix for Frappe Framework and ERPNext v15.
+Bulk access-management tools and reporting for Frappe Framework and ERPNext v15.
 
-Permission Manager lets a System Manager select one role and manage its DocType permissions in a single screen. DocTypes are grouped by installed application and module, with filters and module-level bulk actions.
+Permission Manager lets a System Manager manage DocType role permissions, user module availability, and Page/Report access from bulk-management screens. It also provides an access workspace, summary cards, and module-access reports.
 
 ## Compatibility
 
@@ -22,7 +22,10 @@ bench build --app marina_permission_manager
 Open:
 
 ```text
+/app/permission-manager-dashboard
 /app/marina-permission-manager
+/app/marina-user-module-manager
+/app/marina-page-report-permission-manager
 ```
 
 Only users with the **System Manager** role can open the page or call its server methods.
@@ -37,11 +40,18 @@ Only users with the **System Manager** role can open the page or call its server
 - Application, module, status, and text filters
 - Pending-change review before a single batch save
 - Uses Frappe's `Custom DocPerm` mechanism and permission validation
+- Select one installed module and manage its availability across all enabled Desk users
+- Bulk availability selection with user, status, and Module Profile filters
+- Profile-controlled users become individually managed only when their module access is changed
+- Bulk role access management for Pages and Reports using Frappe's `Custom Role` mechanism
+- Permission Manager workspace with active-user, module, and workspace cards
+- Users Available per Module and User Module Access Summary reports
 
-Advanced-rule creation, Role Profiles, User Permissions, Pages, Reports, and Workspaces are intentionally outside the first prototype.
+Advanced-rule creation and User Permissions are outside the current scope.
 
 ## Releases
 
+- **0.2.0** — Add the Permission Manager workspace, summary cards, module-access reports, bulk user-module management, bulk Page/Report role management, and clickable DocType links.
 - **0.1.1** — Fix the Save Changes button on Frappe v15.
 - **0.1.0** — Initial module-grouped permission matrix.
 

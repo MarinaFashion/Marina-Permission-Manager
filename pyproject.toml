@@ -3,7 +3,7 @@ name = "marina_permission_manager"
 authors = [
     { name = "Marina Fashion", email = "a.hasan@marinafashion.com.sa" }
 ]
-description = "Editable, module-grouped role permission matrix for Frappe and ERPNext v15"
+description = "Bulk role, module, Page, and Report access management for Frappe and ERPNext v15"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]
