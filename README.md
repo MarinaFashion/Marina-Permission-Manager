@@ -58,6 +58,7 @@ Complex multi-rule editing remains available through Frappe's standard User Perm
 
 ## Releases
 
+- **0.4.1** — Fix Apply To All Document Types handling in Bulk User Permissions so checked scopes load permitted values correctly across Frappe request formats.
 - **0.4.0** — Add user-centric User Permission management with generic document-value assignment, default controls, inactive-user cleanup, and exact-scope reconciliation while retaining the existing users-for-permission mode.
 - **0.3.0** — Add bulk Workspace role management, inherited-user access preview, bulk User Permission management with active/inactive cleanup, responsive table sizing, and direct Page/Report links.
 - **0.2.0** — Add the Permission Manager workspace, summary cards, module-access reports, bulk user-module management, bulk Page/Report role management, and clickable DocType links.

@@ -187,6 +187,11 @@ class MarinaUserPermissionManager {
     return this.value_pending.size > 0 || this.pending.size > 0;
   }
 
+  apply_all_enabled() {
+    const value = this.apply_all_field.get_value();
+    return value === true || value === 1 || value === "1" || value === "true";
+  }
+
   handle_mode_change() {
     if (this.suppress_changes) return;
     const requested_mode = this.mode_field.get_value();
@@ -266,7 +271,7 @@ class MarinaUserPermissionManager {
     if (this.suppress_changes) return;
     const proceed = async () => {
       this.update_scope_controls();
-      if (this.apply_all_field.get_value()) {
+      if (this.apply_all_enabled()) {
         await this.with_suppressed_changes(() => this.applicable_field.set_value(""));
       }
       if (this.is_value_mode()) await this.load_user_values();
@@ -312,7 +317,7 @@ class MarinaUserPermissionManager {
   }
 
   update_scope_controls() {
-    const apply_all = Boolean(this.apply_all_field.get_value());
+    const apply_all = this.apply_all_enabled();
     this.applicable_field.toggle(!apply_all);
     this.applicable_field.df.reqd = apply_all ? 0 : 1;
     this.applicable_field.refresh();
@@ -322,8 +327,8 @@ class MarinaUserPermissionManager {
     return {
       allow: this.allow_field.get_value(),
       for_value: this.value_field.get_value(),
-      apply_to_all_doctypes: Boolean(this.apply_all_field.get_value()),
-      applicable_for: this.apply_all_field.get_value() ? "" : this.applicable_field.get_value(),
+      apply_to_all_doctypes: this.apply_all_enabled() ? 1 : 0,
+      applicable_for: this.apply_all_enabled() ? "" : this.applicable_field.get_value(),
     };
   }
 
@@ -337,8 +342,8 @@ class MarinaUserPermissionManager {
     return {
       user: this.user_field.get_value(),
       allow: this.allow_field.get_value(),
-      apply_to_all_doctypes: Boolean(this.apply_all_field.get_value()),
-      applicable_for: this.apply_all_field.get_value() ? "" : this.applicable_field.get_value(),
+      apply_to_all_doctypes: this.apply_all_enabled() ? 1 : 0,
+      applicable_for: this.apply_all_enabled() ? "" : this.applicable_field.get_value(),
     };
   }
 

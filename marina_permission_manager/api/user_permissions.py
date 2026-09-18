@@ -16,6 +16,12 @@ def _only_system_manager() -> None:
 	frappe.only_for("System Manager")
 
 
+def _as_bool(value: int | str | bool | None) -> bool:
+	if isinstance(value, str):
+		return value.strip().lower() in {"1", "true", "yes", "on"}
+	return bool(cint(value))
+
+
 def _validate_allow_scope(
 	allow: str,
 	apply_to_all_doctypes: int | str | bool,
@@ -24,7 +30,7 @@ def _validate_allow_scope(
 	if not allow or not frappe.db.exists("DocType", {"name": allow, "istable": 0}):
 		frappe.throw(_("Please select a valid non-child Document Type in Allow."))
 
-	apply_to_all = bool(cint(apply_to_all_doctypes))
+	apply_to_all = _as_bool(apply_to_all_doctypes)
 	applicable = cstr(applicable_for).strip()
 	if apply_to_all:
 		applicable = ""

@@ -5,6 +5,7 @@ from unittest.mock import patch
 import frappe
 
 from marina_permission_manager.api.user_permissions import (
+	_as_bool,
 	_rule_filters,
 	save_user_permission_values,
 	save_user_permission_users,
@@ -12,6 +13,16 @@ from marina_permission_manager.api.user_permissions import (
 
 
 class TestBulkUserPermissions(TestCase):
+	def test_scope_boolean_accepts_frappe_request_values(self):
+		self.assertTrue(_as_bool(True))
+		self.assertTrue(_as_bool(1))
+		self.assertTrue(_as_bool("1"))
+		self.assertTrue(_as_bool("true"))
+		self.assertFalse(_as_bool(False))
+		self.assertFalse(_as_bool(0))
+		self.assertFalse(_as_bool("0"))
+		self.assertFalse(_as_bool("false"))
+
 	def test_rule_filters_preserve_exact_scope(self):
 		self.assertEqual(
 			_rule_filters("Warehouse", "Stores - MA", False, "Stock Entry"),
