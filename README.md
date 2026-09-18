@@ -51,13 +51,16 @@ Only users with the **System Manager** role can open the page or call its server
 - Dual-mode User Permission management: assign one exact value across Desk users, or select one user and reconcile all values for an Allow document type and scope
 - User-centric saves create missing permissions, update default selection, and delete deselected exact records while preserving unrelated User Permissions
 - Active/inactive user filtering, with safe cleanup of permissions belonging to inactive users
+- Existing User Permission review with User, status, Allow, scope, and text filters; inline scope/default editing; bulk deletion; and paginated loading
+- Review-mode identity fields remain read-only so edits cannot silently repurpose a User Permission record; creation stays in the two dedicated management modes
 - Permission Manager workspace with active-user, module, and workspace cards
 - Users Available per Module and User Module Access Summary reports
 
-Complex multi-rule editing remains available through Frappe's standard User Permission list.
+The standard User Permission list remains available directly from the bulk-management page.
 
 ## Releases
 
+- **0.5.0** — Add paginated review and bulk maintenance of existing User Permissions across users and document types, including inactive-user cleanup, editable scope/default fields, and a simplified responsive value table while preserving both creation workflows.
 - **0.4.1** — Fix Apply To All Document Types handling in Bulk User Permissions so checked scopes load permitted values correctly across Frappe request formats.
 - **0.4.0** — Add user-centric User Permission management with generic document-value assignment, default controls, inactive-user cleanup, and exact-scope reconciliation while retaining the existing users-for-permission mode.
 - **0.3.0** — Add bulk Workspace role management, inherited-user access preview, bulk User Permission management with active/inactive cleanup, responsive table sizing, and direct Page/Report links.
